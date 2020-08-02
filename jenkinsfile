@@ -22,12 +22,12 @@ node {
 	
 	
 	stage('upload the artifact'){
-	nexusArtifactUploader artifacts: [[artifactId: 'course', classifier: '', file: '/var/lib/jenkins/workspace/pipeline/target/course.war', type: 'war']], credentialsId: 'nexusid', groupId: 'course', nexusUrl: '13.233.247.221:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'Project1', version: '1.0.0.${BUILD_ID}'
+	nexusArtifactUploader artifacts: [[artifactId: 'course', classifier: '', file: '/var/lib/jenkins/workspace/Course_Automation/target/course.war', type: 'war']], credentialsId: 'nexusid', groupId: 'course', nexusUrl: '13.233.247.221:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'Project1', version: '1.0.0.${BUILD_ID}'
 	}
 	
 	stage('deploy the artifact into appservers'){
-	deploy adapters: [tomcat9(credentialsId: 'tomcatid', path: '', url: 'http://13.233.111.234:8080/')], contextPath: 'course', war: '**/*.war'
-	deploy adapters: [tomcat9(credentialsId: 'tomcatid', path: '', url: 'http://13.235.243.182:8080/')], contextPath: 'course', war: '**/*.war'
+	deploy adapters: [tomcat9(credentialsId: 'tomcatid', path: '', url: 'http://13.232.101.161:8080/')], contextPath: 'course', war: '**/*.war'
+	deploy adapters: [tomcat9(credentialsId: 'tomcatid', path: '', url: 'http://52.66.250.39:8080/')], contextPath: 'course', war: '**/*.war'
 	}
 	
     }
