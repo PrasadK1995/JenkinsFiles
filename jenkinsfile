@@ -6,6 +6,14 @@ node {
         git 'https://github.com/PrasadK1995/course.git'
         mvnHome = tool 'MAVEN3'
     }
+    
+    
+    stage('SonarQube analysis') {
+        withEnv(["MAVN_HOME=$mvnHome"])
+	   {
+    withSonarQubeEnv(credentialsId: 'sonarid', installationName: 'Sonar') {
+      sh '"$MAVN_HOME/bin/mvn" org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
+    }
 
 
     stage('Build the artifact') {
