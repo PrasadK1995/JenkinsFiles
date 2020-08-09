@@ -36,7 +36,7 @@ node {
 	nexusArtifactUploader artifacts: [[artifactId: 'course', classifier: '', file: '/var/lib/jenkins/workspace/Course_Automation/target/course.war', type: 'war']], credentialsId: 'nexusid', groupId: 'course', nexusUrl: '13.234.67.50:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'course', version: '1.0.0.${BUILD_ID}'
 	}
 	
-	stage('deploy the artifact into appservers') {
+	stage('deploy the artifact into prod appservers') {
 	 withEnv(["ansibleHome=/home/jenkins/.local"])
 	   {
         sh label: '', script: '"$ansibleHome/bin/ansible-playbook" /home/jenkins/playbook.yml'
