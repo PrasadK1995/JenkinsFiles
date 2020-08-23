@@ -11,7 +11,7 @@ node {
     stage('SonarQube analysis') {
         withEnv(["MAVN_HOME=$mvnHome"])
 	   {
-    withSonarQubeEnv(credentialsId: 'sonarid', installationName: 'Sonar') {
+    withSonarQubeEnv(credentialsId: 'sonarid1', installationName: 'Sonar') {
       sh '"$MAVN_HOME/bin/mvn" org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
      }
     }
