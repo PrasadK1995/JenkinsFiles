@@ -7,7 +7,7 @@ node {
     stage ("build the artifact") {
     withEnv(["MAVN_HOME=$var1"])
 	   {
-        sh '"$MAVN_HOME/bin/mv" clean package'
+        sh '"$MAVN_HOME/bin/mvn" clean package'
         
     }
    }
