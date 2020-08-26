@@ -1,0 +1,24 @@
+node {
+    def var1
+    stage ("checkout source code") {
+        git 'https://github.com/PrasadK1995/course.git'
+        var1 = tool "MAVEN-3.6.3"
+    }
+    stage ("build the artifact") {
+    withEnv(["MAVN_HOME=$var1"])
+	   {
+        sh '"$MAVN_HOME/bin/mv" clean package'
+        
+    }
+   }
+   stage ("archieve the artifacts"){
+       archiveArtifacts artifacts: '**/*.war', followSymlinks: false
+   }
+   stage ("upload artifact to nexus"){
+       nexusArtifactUploader artifacts: [[artifactId: 'course', classifier: '', file: '/var/lib/jenkins/workspace/Pipeline2/target/course.war', type: 'war']], credentialsId: 'nexusid', groupId: 'course', nexusUrl: '13.233.30.175:8081/', nexusVersion: 'nexus3', protocol: 'http', repository: 'MAVEN', version: '1.0.0.${BUILD_ID}-SNAPSHOT'
+   }
+   stage ("deployment in tomcat") {
+       deploy adapters: [tomcat9(credentialsId: 'tomcatidnew', path: '', url: 'http://13.235.79.59:8080')], contextPath: 'course', war: '**/*.war'
+   }
+}
+  
