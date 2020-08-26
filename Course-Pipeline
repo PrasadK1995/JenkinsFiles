@@ -15,7 +15,7 @@ node {
        archiveArtifacts artifacts: '**/*.war', followSymlinks: false
    }
    stage ("upload artifact to nexus"){
-       nexusArtifactUploader artifacts: [[artifactId: 'course', classifier: '', file: '/var/lib/jenkins/workspace/Pipeline2/target/course.war', type: 'war']], credentialsId: 'nexusid', groupId: 'course', nexusUrl: '13.233.30.175:8081/', nexusVersion: 'nexus3', protocol: 'http', repository: 'MAVEN', version: '1.0.0.${BUILD_ID}-SNAPSHOT'
+       nexusArtifactUploader artifacts: [[artifactId: 'course', classifier: '', file: '/var/lib/jenkins/workspace/Course-Pipeline/target/course.war', type: 'war']], credentialsId: 'nexusid', groupId: 'course', nexusUrl: '13.233.30.175:8081/', nexusVersion: 'nexus3', protocol: 'http', repository: 'MAVEN', version: '1.0.0.${BUILD_ID}-SNAPSHOT'
    }
    stage ("deployment in tomcat") {
        deploy adapters: [tomcat9(credentialsId: 'tomcatidnew', path: '', url: 'http://13.235.79.59:8080')], contextPath: 'course', war: '**/*.war'
